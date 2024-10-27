@@ -44,7 +44,7 @@ var mis = parseInt(document.getElementById('mis').value,10);
 var com = per + gre + goo + bad + mis;
 var raw = 1000000/com
 if(document.getElementById("fc_check").checked){
-var score = Math.trunc(raw*(1.01(per+gre)+0.5*goo+0.1*bad)).toLocaleString()
+var score = Math.trunc(raw*(1.01*(per+gre)+0.5*goo+0.1*bad)).toLocaleString()
 document.getElementById('type').textContent = "FC";
 }else{
 var score = Math.trunc(raw*(1.01*per+gre+0.5*goo+0.1*bad)).toLocaleString()
