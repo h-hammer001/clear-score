@@ -1,0 +1,99 @@
+<html>
+<head>
+<title>スコア</title>
+<style>
+input:invalid {border: solid 3px red;outline: 0;}
+button {
+  padding:5px 10px 5px 10px;
+  margin: 3px 10px 5px 10px;
+  text-decoration: none;
+  background: #eee;
+  color: #000;
+  border-radius: 3px;
+}
+.checkbox{transform: scale(1.5)}
+</style>
+</head>
+<body>
+<table style="border:none;">
+<tr><td>PERFECT</td><td>:<input type="number" id="per" min="0" step="1"></td></tr>
+<tr><td>GREAT</td><td>:<input type="number" id="gre" min="0" step="1"></td></tr>
+<tr><td>GOOD</td><td>:<input type="number" id="goo" min="0" step="1"></td></tr>
+<tr><td>BAD</td><td>:<input type="number" id="bad" min="0" step="1"></td></tr>
+<tr><td>MISS</td><td>:<input type="number" id="mis" min="0" step="1"></td></tr>
+</table>
+<button onclick="calc()">計算</button><br>
+スコア：<a id="score">1,000,000</a><br>
+ランク：<a id="rank"></a><br>
+タイプ：<a id="type"></a><br>
+得点数：<a id="point" name="match"></a><br>
+失点数：<a id="lost" name="match"></a><br>
+<table style="border:none;margin-top:10px;">
+<tr><th>オプション</th></tr>
+<tr><td>FCを理論値とする</td><td>:<input type="checkbox" id="fc_check" class="checkbox"></td></tr>
+<tr><td>ランクマッチルールでの点数を表示</td><td>:<input type="checkbox" id="rank_match" class="checkbox"></td></tr>
+</table>
+</body>
+<script type="text/javascript">
+function calc(){
+var per = parseInt(document.getElementById('per').value,10);
+var gre = parseInt(document.getElementById('gre').value,10);
+var goo = parseInt(document.getElementById('goo').value,10);
+var bad = parseInt(document.getElementById('bad').value,10);
+var mis = parseInt(document.getElementById('mis').value,10);
+var com = per + gre + goo + bad + mis;
+var raw = 1000000/com
+if(document.getElementById("fc_check").checked){
+var score = Math.trunc(raw*(1.01(per+gre)+0.5*goo+0.1*bad)).toLocaleString()
+document.getElementById('type').textContent = "FC";
+}else{
+var score = Math.trunc(raw*(1.01*per+gre+0.5*goo+0.1*bad)).toLocaleString()
+document.getElementById('type').textContent = "AP";
+}
+if(score == 'NaN'){
+alert("すべての枠に数値を入力してください");
+}else{
+if(per!=Math.floor(Math.sqrt(per*per))||gre!=Math.floor(Math.sqrt(gre*gre))||goo!=Math.floor(Math.sqrt(goo*goo))||bad!= Math.floor(Math.sqrt(bad*bad))||mis!=Math.floor(Math.sqrt(mis*mis))){
+alert("不正な値が入力されています");
+}else{
+if(document.getElementById("rank_match").checked){
+var point = 3 * per + 2 * gre + goo;
+var lost = 3 * com - point;
+document.getElementById('point').textContent = point+'/'+3*com;
+document.getElementById('lost').textContent = lost;
+}else{
+document.getElementById('point').textContent = "";
+document.getElementById('lost').textContent = "";
+}
+document.getElementById('score').textContent = score;
+if(score>1009000){
+document.getElementById('rank').textContent = 'SSS+';
+}else if(score>1007500){
+document.getElementById('rank').textContent = 'SSS';
+}else if(score>1005000){
+document.getElementById('rank').textContent = 'SS+';
+}else if(score>1000000){
+document.getElementById('rank').textContent = 'SS';
+}else if(score>990000){
+document.getElementById('rank').textContent = 'S+';
+}else if(score>975000){
+document.getElementById('rank').textContent = 'S';
+}else if(score>950000){
+document.getElementById('rank').textContent = 'AAA';
+}else if(score>925000){
+document.getElementById('rank').textContent = 'AA';
+}else if(score>900000){
+document.getElementById('rank').textContent = 'A';
+}else if(score>800000){
+document.getElementById('rank').textContent = 'BBB';
+}else if(score>700000){
+document.getElementById('rank').textContent = 'BB';
+}else if(score>600000){
+document.getElementById('rank').textContent = 'B';
+}else if(score>500000){
+document.getElementById('rank').textContent = 'C';
+}else{
+document.getElementById('rank').textContent = 'D';
+}}}}
+</script>
+</html>
