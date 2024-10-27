@@ -44,10 +44,10 @@ var mis = parseInt(document.getElementById('mis').value,10);
 var com = per + gre + goo + bad + mis;
 var raw = 1000000/com
 if(document.getElementById("fc_check").checked){
-var score = Math.toFixed(raw*(1.01*(per+gre)+0.5*goo+0.1*bad)).toLocaleString()
+var score = Math.toFixed(raw*(1.01*(per+gre)+0.5*goo+0.1*bad))
 document.getElementById('type').textContent = "FC";
 }else{
-var score = Math.toFixed(raw*(1.01*per+gre+0.5*goo+0.1*bad)).toLocaleString()
+var score = Math.toFixed(raw*(1.01*per+gre+0.5*goo+0.1*bad))
 document.getElementById('type').textContent = "AP";
 }
 if(score == 'NaN'){
@@ -65,7 +65,6 @@ document.getElementById('lost').textContent = lost;
 document.getElementById('point').textContent = "";
 document.getElementById('lost').textContent = "";
 }
-document.getElementById('score').textContent = score;
 if(score>1009000){
 document.getElementById('rank').textContent = 'SSS+';
 }else if(score>1007500){
@@ -94,6 +93,8 @@ document.getElementById('rank').textContent = 'B';
 document.getElementById('rank').textContent = 'C';
 }else{
 document.getElementById('rank').textContent = 'D';
-}}}}
+}
+document.getElementById('score').textContent = scoretoLocaleString();
+}}}
 </script>
 </html>
